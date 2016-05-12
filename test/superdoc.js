@@ -3,14 +3,15 @@ var app = require('./app'),
     request = superdoc(app),
     resetDoc
 
+var should = require('should')
+
 beforeEach(function () {
   resetDoc = superdoc.doc()
 })
 
 afterEach(function () {
-  resetDoc(function(methods) {
-    console.log(methods)
-  })
+  console.log(superdoc.methods)
+  resetDoc()
 })
 
 describe('methods', function () {
@@ -46,6 +47,7 @@ describe('methods', function () {
         .expect('hello')
         .end(function (err) {
           if (err) return done(err)
+
           superdoc.methods.length.should.equal(1)
           superdoc.methods[0].description.should.equal('whatever')
           done()
@@ -59,8 +61,9 @@ describe('methods', function () {
         .expect('hello')
         .end(function (err) {
           if (err) return done(err)
+
           superdoc.methods.length.should.equal(1)
-          superdoc.methods[0].arguments.should.deepEqual({ hello: 'world' })
+          superdoc.methods[0].arguments.should.deepEqual({hello: 'world'})
           done()
         })
   })
@@ -68,14 +71,14 @@ describe('methods', function () {
   it('should track arguments in body', function (done) {
     request
         .post('/json')
-        .send({ hello: 'world' })
+        .send({hello: 'world'})
         .describe('whatever')
-        .expect({ hello: 'world' })
+        .expect({hello: 'world'})
         .end(function (err) {
           if (err) return done(err)
 
           superdoc.methods.length.should.equal(1)
-          superdoc.methods[0].arguments.should.deepEqual({ hello: 'world' })
+          superdoc.methods[0].arguments.should.deepEqual({hello: 'world'})
           done()
         })
   })
@@ -97,11 +100,11 @@ describe('methods', function () {
     request
         .get('/json')
         .describe('whatever')
-        .expect({ hello: 'world' })
+        .expect({hello: 'world'})
         .end(function (err) {
           if (err) return done(err)
           superdoc.methods.length.should.equal(1)
-          superdoc.methods[0].response.should.deepEqual({ hello: 'world' })
+          superdoc.methods[0].response.should.deepEqual({hello: 'world'})
           done()
         })
   })

@@ -3,9 +3,14 @@ var url = require('url'),
     supertest = require('supertest'),
     Test = supertest.Test,
     _assert,
-    methods = []
+    methods = [],
+    _options
 
-function doc () {
+function doc (options) {
+  _options = options || {
+        apiPrefix: '/'
+      }
+
   methods.length = 0
 
   _assert = Test.prototype.assert
@@ -25,8 +30,6 @@ function doc () {
 function stop () {
   Test.prototype.assert = _assert
   delete Test.prototype.describe
-
-  return methods
 }
 
 function map (test) {
@@ -36,11 +39,16 @@ function map (test) {
 
   methods.push({
     // trim leading slash
-    name: requestUrl.pathname.substring(1),
+    name: requestUrl.pathname.replace(new RegExp('^' + escapeRegExp(_options.apiPrefix)), ''),
     description: test.description || '',
-    arguments: requestUrl.query && querystring.parse(requestUrl.query) || test._data,
+    arguments: (requestUrl.query && querystring.parse(requestUrl.query)) || test._data,
     response: /text/.test(response.type) ? response.text : response.body
   })
+}
+
+// http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
+function escapeRegExp(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 }
 
 module.exports = supertest
