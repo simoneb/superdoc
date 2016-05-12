@@ -5,7 +5,6 @@ var url = require('url'),
     _assert,
     methods = []
 
-
 function doc () {
   methods.length = 0
 
@@ -23,11 +22,11 @@ function doc () {
   return stop
 }
 
-function stop (reduce) {
+function stop () {
   Test.prototype.assert = _assert
   delete Test.prototype.describe
 
-  typeof reduce === 'function' && reduce(methods)
+  return methods
 }
 
 function map (test) {
