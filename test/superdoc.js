@@ -8,7 +8,9 @@ beforeEach(function () {
 })
 
 afterEach(function () {
-  resetDoc()
+  resetDoc(function(methods) {
+    console.log(methods)
+  })
 })
 
 describe('methods', function () {
@@ -16,6 +18,18 @@ describe('methods', function () {
   it('should track name', function (done) {
     request
         .get('/hello')
+        .expect('hello')
+        .end(function (err) {
+          if (err) return done(err)
+          superdoc.methods.length.should.equal(1)
+          superdoc.methods[0].name.should.equal('hello')
+          done()
+        })
+  })
+
+  it('should track name with querystring', function (done) {
+    request
+        .get('/hello?world=1')
         .expect('hello')
         .end(function (err) {
           if (err) return done(err)
@@ -51,14 +65,15 @@ describe('methods', function () {
         })
   })
 
-  it.skip('should track arguments in body', function (done) {
+  it('should track arguments in body', function (done) {
     request
         .post('/json')
         .send({ hello: 'world' })
         .describe('whatever')
-        .expect('hello')
+        .expect({ hello: 'world' })
         .end(function (err) {
           if (err) return done(err)
+
           superdoc.methods.length.should.equal(1)
           superdoc.methods[0].arguments.should.deepEqual({ hello: 'world' })
           done()

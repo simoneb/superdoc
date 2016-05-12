@@ -3,15 +3,11 @@ var url = require('url'),
     supertest = require('supertest'),
     Test = supertest.Test,
     _assert,
-    methods = [],
-    _reduce
+    methods = []
 
 
-function doc (reduce) {
+function doc () {
   methods.length = 0
-  _reduce = reduce || function (i) {
-        return i
-      }
 
   _assert = Test.prototype.assert
   Test.prototype.assert = function () {
@@ -27,11 +23,11 @@ function doc (reduce) {
   return stop
 }
 
-function stop () {
+function stop (reduce) {
   Test.prototype.assert = _assert
   delete Test.prototype.describe
 
-  _reduce(methods)
+  typeof reduce === 'function' && reduce(methods)
 }
 
 function map (test) {
@@ -39,13 +35,11 @@ function map (test) {
       response = test.response,
       requestUrl = url.parse(request.path)
 
-  console.log(request.body)
-
   methods.push({
     // trim leading slash
-    name: requestUrl.path.substring(1),
+    name: requestUrl.pathname.substring(1),
     description: test.description || '',
-    arguments: requestUrl.query && querystring.parse(requestUrl.query) || request.body,
+    arguments: requestUrl.query && querystring.parse(requestUrl.query) || test._data,
     response: /text/.test(response.type) ? response.text : response.body
   })
 }
