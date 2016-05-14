@@ -7,8 +7,8 @@
     "test": "mocha -r should test/",
     "watch": "npm run test -- -watch"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Simone Busoli",
+  "license": "MIT",
   "peerDependencies": {
     "supertest": "^1.2.0"
   },
@@ -17,5 +17,10 @@
     "mocha": "^2.4.5",
     "should": "^8.3.1",
     "body-parser": "^1.15.1"
+  },
+  "dependencies": {
+    "lodash": "^4.12.0",
+    "ejs": "^2.4.1",
+    "express": "~4.13.1"
   }
 }

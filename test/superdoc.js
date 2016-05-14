@@ -1,17 +1,15 @@
-var app = require('./app'),
+var should = require('should'),
+    app = require('./app'),
     superdoc = require('..'),
-    request = superdoc(app),
-    resetDoc
-
-var should = require('should')
+    request = require('supertest')(app),
+    docs
 
 beforeEach(function () {
-  resetDoc = superdoc.doc()
+  docs = superdoc.start()
 })
 
 afterEach(function () {
-  console.log(superdoc.methods)
-  resetDoc()
+  docs()
 })
 
 describe('methods', function () {
@@ -22,8 +20,8 @@ describe('methods', function () {
         .expect('hello')
         .end(function (err) {
           if (err) return done(err)
-          superdoc.methods.length.should.equal(1)
-          superdoc.methods[0].name.should.equal('hello')
+          docs.methods.length.should.equal(1)
+          docs.methods[0].name.should.equal('hello')
           done()
         })
   })
@@ -34,8 +32,8 @@ describe('methods', function () {
         .expect('hello')
         .end(function (err) {
           if (err) return done(err)
-          superdoc.methods.length.should.equal(1)
-          superdoc.methods[0].name.should.equal('hello')
+          docs.methods.length.should.equal(1)
+          docs.methods[0].name.should.equal('hello')
           done()
         })
   })
@@ -48,8 +46,8 @@ describe('methods', function () {
         .end(function (err) {
           if (err) return done(err)
 
-          superdoc.methods.length.should.equal(1)
-          superdoc.methods[0].description.should.equal('whatever')
+          docs.methods.length.should.equal(1)
+          docs.methods[0].description.should.equal('whatever')
           done()
         })
   })
@@ -62,8 +60,8 @@ describe('methods', function () {
         .end(function (err) {
           if (err) return done(err)
 
-          superdoc.methods.length.should.equal(1)
-          superdoc.methods[0].arguments.should.deepEqual({hello: 'world'})
+          docs.methods.length.should.equal(1)
+          should(docs.methods[0].arguments).deepEqual({hello: 'world'})
           done()
         })
   })
@@ -77,8 +75,23 @@ describe('methods', function () {
         .end(function (err) {
           if (err) return done(err)
 
-          superdoc.methods.length.should.equal(1)
-          superdoc.methods[0].arguments.should.deepEqual({hello: 'world'})
+          docs.methods.length.should.equal(1)
+          docs.methods[0].arguments.should.deepEqual({hello: 'world'})
+          done()
+        })
+  })
+
+  it('should track arguments descriptions', function (done) {
+    request
+        .post('/json')
+        .send({hello: 'world'})
+        .describeArgs({hello: 'some argument'})
+        .expect({hello: 'world'})
+        .end(function (err) {
+          if (err) return done(err)
+
+          docs.methods.length.should.equal(1)
+          docs.methods[0].argumentDescription.should.deepEqual({hello: 'some argument'})
           done()
         })
   })
@@ -90,8 +103,8 @@ describe('methods', function () {
         .expect('hello')
         .end(function (err) {
           if (err) return done(err)
-          superdoc.methods.length.should.equal(1)
-          superdoc.methods[0].response.should.equal('hello')
+          docs.methods.length.should.equal(1)
+          docs.methods[0].response.should.equal('hello')
           done()
         })
   })
@@ -103,8 +116,8 @@ describe('methods', function () {
         .expect({hello: 'world'})
         .end(function (err) {
           if (err) return done(err)
-          superdoc.methods.length.should.equal(1)
-          superdoc.methods[0].response.should.deepEqual({hello: 'world'})
+          docs.methods.length.should.equal(1)
+          docs.methods[0].response.should.deepEqual({hello: 'world'})
           done()
         })
   })

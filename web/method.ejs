@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>python-server api docs</title>
+</head>
+<body>
+<h1><%= name %></h1>
+<p><%= method.description %></p>
+<h2>arguments</h2>
+<table>
+  <tbody>
+  <tr>
+    <td>Argument</td>
+    <td>Example</td>
+  </tr>
+  <% Object.keys(method.arguments).forEach(argument => { %>
+  <tr>
+    <td><%= argument %></td>
+    <td><%= method.arguments[argument] %></td>
+  </tr>
+  <% }) %>
+  </tbody>
+</table>
+<h2>response</h2>
+<pre><%= JSON.stringify(method.response, null, 2) %></pre>
+<h2>errors</h2>
+<ul>
+  <% method.errors.forEach(error => { %>
+  <li><%= error %></li>
+  <% }) %>
+</ul>
+</body>
+</html>
