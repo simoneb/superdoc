@@ -1,34 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>python-server api docs</title>
+    <meta charset="UTF-8">
+    <title>python-server api docs</title>
 </head>
 <body>
 <h1><%= name %></h1>
 <p><%= method.description %></p>
 <h2>arguments</h2>
 <table>
-  <tbody>
-  <tr>
-    <td>Argument</td>
-    <td>Example</td>
-  </tr>
-  <% Object.keys(method.arguments).forEach(argument => { %>
-  <tr>
-    <td><%= argument %></td>
-    <td><%= method.arguments[argument] %></td>
-  </tr>
-  <% }) %>
-  </tbody>
+    <tbody>
+    <tr>
+        <td>Argument</td>
+        <td>Example</td>
+        <td>Required</td>
+        <td>Description</td>
+    </tr>
+    <% Object.keys(method.arguments).forEach(argument => { %>
+    <tr>
+        <td><%= argument %></td>
+        <td><%= method.arguments[argument].example %></td>
+        <td></td>
+        <td><%= method.arguments[argument].description %></td>
+    </tr>
+    <% }) %>
+    </tbody>
 </table>
 <h2>response</h2>
 <pre><%= JSON.stringify(method.response, null, 2) %></pre>
 <h2>errors</h2>
 <ul>
-  <% method.errors.forEach(error => { %>
-  <li><%= error %></li>
-  <% }) %>
+    <% method.errors.forEach(error => { %>
+    <li><%= error %></li>
+    <% }) %>
 </ul>
 </body>
 </html>
