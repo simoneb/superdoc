@@ -6,8 +6,8 @@
 </head>
 <body>
 <%
-Object.keys(methods).forEach(groupName => {
-    var groupMethods = methods[groupName]
+Object.keys(groups).forEach(groupName => {
+    var groupMethods = groups[groupName]
 %>
 <h2><%= groupName %></h2>
 <table>
@@ -17,12 +17,11 @@ Object.keys(methods).forEach(groupName => {
         <th>Description</th>
     </tr>
     <%
-    Object.keys(groupMethods).forEach(groupMethodName => {
-        var groupMethod = groupMethods[groupMethodName]
+    groupMethods.forEach(method => {
     %>
     <tr>
-        <td width="30%"><a href="docs/<%= groupMethodName %>"><%= groupMethodName %></a></td>
-        <td width="70%"><%= groupMethod.description %></td>
+        <td width="30%"><a href="docs/<%= method.name %>"><%= method.name %></a></td>
+        <td width="70%"><%= method.description %></td>
     </tr>
     <% }) %>
     </tbody>

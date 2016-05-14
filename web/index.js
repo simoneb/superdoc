@@ -1,3 +1,4 @@
+let _ = require('lodash')
 let app = require('express')()
 
 app.set('view engine', 'ejs')
@@ -8,15 +9,16 @@ app.use((req, res, next) => {
   next()
 })
 
-app.get('/', (req, res) => res.render('index', {methods: req.methods}))
+app.get('/', (req, res) => {
+  let groups = _.groupBy(req.methods, method => method.name.split('.')[0])
+
+  res.render('index', {groups})
+})
 
 app.get('/:method', (req, res) => {
-  let group = req.params.method.split('.')[0]
+  let method = _.find(req.methods, {name: req.params.method})
 
-  res.render('method', {
-    name: req.params.method,
-    method: req.methods[group][req.params.method]
-  })
+  res.render('method', {method})
 })
 
 module.exports = function (options) {

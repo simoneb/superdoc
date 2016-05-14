@@ -5,7 +5,7 @@
     <title>python-server api docs</title>
 </head>
 <body>
-<h1><%= name %></h1>
+<h1><%= method.name %></h1>
 <p><%= method.description %></p>
 <h2>arguments</h2>
 <table>
@@ -20,7 +20,7 @@
     <tr>
         <td><%= argument %></td>
         <td><%= method.arguments[argument].example %></td>
-        <td></td>
+        <td><%= method.arguments[argument].required ? 'Required' : 'Optional' %></td>
         <td><%= method.arguments[argument].description %></td>
     </tr>
     <% }) %>
