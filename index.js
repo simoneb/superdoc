@@ -1,5 +1,2 @@
-var Runner = require('./lib/Runner'),
-    web = require('./web')
-
-module.exports.start = options => new Runner(options)
-module.exports.web = options => web(options)
+module.exports.start = options => new require('./lib/Runner')(options)
+module.exports.web = options => require('./web')(options)
