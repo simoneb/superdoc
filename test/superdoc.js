@@ -1,5 +1,5 @@
 var should = require('should'),
-    app = require('./app'),
+    app = require('./../utils/app'),
     superdoc = require('..'),
     request = require('supertest')(app),
     docs

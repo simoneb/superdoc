@@ -1,0 +1,46 @@
+<h1><%= method.name %></h1>
+<div class="content">
+    <p><%= method.description %></p>
+    <h2>Arguments</h2>
+    <p>This method has the URL
+        <code>https://[host]<%= options.apiPrefix %>/<%= method.name %></code>
+        and follows the <a href="<%=mountpath%>">Web API calling conventions</a>.</p>
+    <table>
+        <tbody>
+        <tr>
+            <th>Argument</th>
+            <th>Example</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+        <% Object.keys(method.arguments).forEach(argument => { %>
+        <tr>
+            <td><code><%= argument %></code></td>
+            <td><code><%= method.arguments[argument].example %></code></td>
+            <td><%= method.arguments[argument].required ? 'Required' : 'Optional' %></td>
+            <td><%= method.arguments[argument].description %></td>
+        </tr>
+        <% }) %>
+        </tbody>
+    </table>
+    <h2>Response</h2>
+    <pre><code><%= JSON.stringify(method.response, null, 2) %></code></pre>
+    <h2>Errors</h2>
+    <table>
+        <tbody>
+        <tr>
+            <th>Error</th>
+            <th>Description</th>
+        </tr>
+        <% method.errors.forEach(error => { %>
+        <tr>
+            <td><code><%= error %></code></td>
+            <td></td>
+        </tr>
+        <% }) %>
+        </tbody>
+    </table>
+    <ul>
+
+    </ul>
+</div>

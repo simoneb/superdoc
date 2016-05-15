@@ -3,15 +3,19 @@ let livereload = require('livereload')
 let _ = require('lodash')
 let readFileSync = require('fs').readFileSync
 let express = require('express')
+let ejsLayouts = require("express-ejs-layouts")
 
 function makeApp (options) {
   let app = express()
 
   app.set('view engine', 'ejs')
-  app.set('views', __dirname)
+  app.set('views', path.join(__dirname, 'views'))
+
+  app.use(ejsLayouts)
+  app.use(express.static(path.join(__dirname, 'public')))
 
   app.use((req, res, next) => {
-    req.methods = JSON.parse(readFileSync(options.fileName))
+    res.locals.docs = JSON.parse(readFileSync(options.fileName))
     next()
   })
 
@@ -20,15 +24,19 @@ function makeApp (options) {
   }
 
   app.get('/', (req, res) => {
-    let groups = _.groupBy(req.methods, method => method.name.split('.')[0])
+    let groups = _.groupBy(res.locals.docs.methods, method => method.name.split('.')[0])
 
-    res.render('index', {groups})
+    res.render('index', {options: res.locals.docs.options, groups})
   })
 
   app.get('/:method', (req, res) => {
-    let method = _.find(req.methods, {name: req.params.method})
+    let method = _.find(res.locals.docs.methods, {name: req.params.method})
 
-    res.render('method', {method})
+    res.render('method', {
+      mountpath: app.mountpath,
+      options: res.locals.docs.options,
+      method
+    })
   })
 
   if (options.liveReload) {
@@ -36,6 +44,10 @@ function makeApp (options) {
       exts: ['json']
     }).watch(path.dirname(options.fileName))
   }
+
+  setTimeout(function () {
+    console.dir(app.mountpath)
+  }, 2000)
 
   return app
 }

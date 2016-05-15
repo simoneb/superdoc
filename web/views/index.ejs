@@ -1,0 +1,53 @@
+<h1>Web API</h1>
+<div class="content">
+
+    <h2>Basics</h2>
+    <p>The Web API consists of <a href="/methods">HTTP RPC-style methods</a>, all of the form
+        <code>https://[host]<%=options.apiPrefix%>/METHOD</code>.</p>
+    <p>Arguments can be passed as GET or
+        POST params, or a mix. The response contains a JSON object, which will always
+        contain a top-level boolean property <code>ok</code>, indicating success or failure. For
+        failure results, the <code>error</code> property will contain a short machine-readable
+        error code. In the case of problematic calls that could still be completed
+        successfully, <code>ok</code> will be <code>true</code> and the <code>warning</code> property will contain a
+        short machine-readable warning code (or comma-separated list of them, in the
+        case of multiple warnings).</p>
+<pre><code>{
+    "ok": true,
+    "stuff": "This is good"
+}
+</code></pre>
+<pre><code>{
+    "ok": false,
+    "error": "something_bad"
+}
+</code></pre>
+<pre><code>{
+    "ok": true,
+    "warning": "something_problematic",
+    "stuff": "Your requested information"
+}
+</code></pre>
+    <p>Other properties are defined in the documentation for the relevant method.</p>
+
+    <%
+    Object.keys(groups).forEach(groupName => {
+        var groupMethods = groups[groupName]
+    %>
+    <h2><%= groupName %></h2>
+    <table>
+        <tbody>
+        <tr>
+            <th>Method</th>
+            <th>Description</th>
+        </tr>
+        <% groupMethods.forEach(method => { %>
+        <tr>
+            <td width="30%"><a href="<%= method.name %>"><%= method.name %></a></td>
+            <td width="70%"><%= method.description %></td>
+        </tr>
+        <% }) %>
+        </tbody>
+    </table>
+    <% }) %>
+</div>
