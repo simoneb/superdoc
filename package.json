@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha -r should test/",
-    "watch": "npm run test -- -watch"
+    "watch": "npm run test -- -watch",
+    "start": "node test/server"
   },
   "author": "Simone Busoli",
   "license": "MIT",
@@ -19,8 +20,10 @@
     "body-parser": "^1.15.1"
   },
   "dependencies": {
-    "lodash": "^4.12.0",
+    "connect-livereload": "^0.5.4",
     "ejs": "^2.4.1",
-    "express": "~4.13.1"
+    "express": "~4.13.1",
+    "livereload": "^0.4.1",
+    "lodash": "^4.12.0"
   }
 }
