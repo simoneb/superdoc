@@ -45,10 +45,6 @@ function makeApp (options) {
     }).watch(path.dirname(options.fileName))
   }
 
-  setTimeout(function () {
-    console.dir(app.mountpath)
-  }, 2000)
-
   return app
 }
 

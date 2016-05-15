@@ -33,6 +33,10 @@ table tr {
     border-bottom: 1px solid #e8e8e8;
 }
 
+table td, table th {
+    padding: .5rem 1rem .5rem 0;
+}
+
 table tr:first-child th:not(:only-of-type) {
     font-weight: 700;
     border-bottom: 2px solid #2ab27b;
@@ -47,7 +51,7 @@ pre {
     margin: 0 0 1rem;
     white-space: pre;
     font-size: .875rem;
-    font-family: Monaco,Menlo,Consolas,"Courier New",monospace!important;
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace !important;
     border: 1px solid #E8E8E8;
     padding: .1rem .4rem;
     border-radius: .2rem;
