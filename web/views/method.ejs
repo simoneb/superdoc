@@ -32,10 +32,10 @@
             <th>Error</th>
             <th>Description</th>
         </tr>
-        <% method.errors.forEach(error => { %>
+        <% Object.keys(method.errors).forEach(error => { %>
         <tr>
             <td><code><%= error %></code></td>
-            <td></td>
+            <td><%= method.errors[error] %></td>
         </tr>
         <% }) %>
         </tbody>
