@@ -4,7 +4,7 @@
     <h2>Arguments</h2>
     <p>This method has the URL
         <code>https://[host]<%= options.apiPrefix %>/<%= method.name %></code>
-        and follows the <a href="<%=mountpath%>">Web API calling conventions</a>.</p>
+        and follows the <a href="<%= mountpath %>">Web API calling conventions</a>.</p>
     <table>
         <tbody>
         <tr>
@@ -24,6 +24,7 @@
         </tbody>
     </table>
     <h2>Response</h2>
+    <p><%= method.responseDescription %></p>
     <pre><code><%= JSON.stringify(method.response, null, 2) %></code></pre>
     <h2>Errors</h2>
     <table>
