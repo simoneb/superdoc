@@ -2,9 +2,19 @@
 <div class="content">
     <p><%= method.description %></p>
     <h2>Arguments</h2>
-    <p>This method has the URL
-        <code>https://[host]<%= options.apiPrefix %>/<%= method.name %></code>
-        and follows the <a href="<%= mountpath %>">Web API calling conventions</a>.</p>
+    <p>
+        This method has the URL <code><a id="method-link"></a></code>
+        and follows the <a href="<%= mountpath %>">Web API calling conventions</a>.
+    </p>
+    <script>
+        (function (window) {
+            var url = window.location.origin + '<%= options.apiPrefix %>/<%= method.name %>'
+            var link = document.querySelector('#method-link')
+            link.href = url
+            link.innerText = url
+        }(window))
+    </script>
+
     <table>
         <tbody>
         <tr>

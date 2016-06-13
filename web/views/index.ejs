@@ -3,7 +3,7 @@
 
     <h2>Basics</h2>
     <p>The Web API consists of HTTP RPC-style methods, all of the form
-        <code>https://[host]<%=options.apiPrefix%>/METHOD</code>.</p>
+        <code><script>document.write(window.location.origin)</script><%=options.apiPrefix%>/METHOD</code>.</p>
     <p>Arguments can be passed as GET or
         POST params, or a mix. The response contains a JSON object, which will always
         contain a top-level boolean property <code>ok</code>, indicating success or failure. For
