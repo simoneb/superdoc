@@ -60,8 +60,9 @@ describe('methods', function () {
         .end(function (err) {
           if (err) return done(err)
 
-          docs.methods.length.should.equal(1)
-          should(docs.methods[0].arguments).deepEqual({hello: 'world'})
+          should.config.checkProtoEql = false;
+          docs.methods.should.have.length(1)
+          should(docs.methods[0].arguments).be.eql({hello: 'world'})
           done()
         })
   })
@@ -75,7 +76,7 @@ describe('methods', function () {
         .end(function (err) {
           if (err) return done(err)
 
-          docs.methods.length.should.equal(1)
+          docs.methods.should.have.length(1)
           docs.methods[0].arguments.should.deepEqual({hello: 'world'})
           done()
         })

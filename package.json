@@ -15,17 +15,17 @@
   },
   "devDependencies": {
     "body-parser": "^1.15.1",
-    "mocha": "^2.4.5",
+    "mocha": "^3.0.2",
     "nodemon": "^1.9.2",
-    "should": "^8.3.1",
-    "supertest": "^1.2.0"
+    "should": "^11.1.0",
+    "supertest": "^2.0.0"
   },
   "dependencies": {
     "connect-livereload": "^0.5.4",
     "ejs": "^2.4.1",
-    "express": "~4.13.1",
+    "express": "^4.14.0",
     "express-ejs-layouts": "^2.1.0",
-    "livereload": "^0.4.1",
+    "livereload": "^0.5.0",
     "lodash": "^4.12.0"
   }
 }

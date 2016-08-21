@@ -1,0 +1,17 @@
+{
+ "options": {
+  "apiPrefix": "",
+  "output": "./data.json"
+ },
+ "methods": [
+  {
+   "name": "json",
+   "description": "whatever",
+   "responseDescription": "",
+   "arguments": {},
+   "response": {},
+   "errors": {},
+   "warnings": []
+  }
+ ]
+}
