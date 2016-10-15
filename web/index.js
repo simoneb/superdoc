@@ -20,7 +20,9 @@ function makeApp (options) {
   })
 
   if (options.liveReload) {
-    app.use(require('connect-livereload')())
+    app.use(require('connect-livereload')({
+      port: options.liveReloadPort
+    }))
   }
 
   app.get('/', (req, res) => {
@@ -41,7 +43,8 @@ function makeApp (options) {
 
   if (options.liveReload) {
     livereload.createServer({
-      exts: ['json']
+      exts: ['json'],
+      port: options.liveReloadPort
     }).watch(path.dirname(options.fileName))
   }
 
