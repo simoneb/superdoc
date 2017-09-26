@@ -26,7 +26,9 @@
         <% Object.keys(method.arguments).forEach(argument => { %>
         <tr>
             <td><code><%= argument %></code></td>
-            <td><code><%= method.arguments[argument].example %></code></td>
+            <td class="example" title="<%= method.arguments[argument].example %>">
+              <code><%= method.arguments[argument].example %></code>
+            </td>
             <td><%= method.arguments[argument].required ? 'Required' : 'Optional' %></td>
             <td><%= method.arguments[argument].description %></td>
         </tr>
